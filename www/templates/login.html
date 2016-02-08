@@ -1,0 +1,14 @@
+<ion-view title="Login">
+    <ion-content overflow-scroll="true" padding="true" style="background: url(img/DvlQhHFpTXLXPnTCML39_Screen%2520Shot%25202016-02-07%2520at%25203.04.09%2520PM.png) no-repeat center;" scroll="false" class="has-header">
+        <h1>Serve You Right</h1>
+        <form class="list">
+            <label class="item item-input">
+                <input ng-model="loginInfo.email" type="email" placeholder="Email" required="">
+            </label>
+            <label class="item item-input">
+                <input ng-model="loginInfo.password" type="password" placeholder="Password" required="">
+            </label>
+        </form>
+        <button ng-click="login(loginInfo)" class="button button-stable  button-large icon-right ion-android-arrow-dropright button-full">Sign In</button>
+    </ion-content>
+</ion-view>
