@@ -1,14 +1,10 @@
 <ion-view title="Menu">
-    <ion-content overflow-scroll="true" padding="true" style="background: url(img/5yAuk8SdSDCgTBrvut2g_Screen%2520Shot%25202016-02-07%2520at%25203.04.09%2520PM.png) no-repeat center;" class="has-header">
+    <ion-content overflow-scroll="true" padding="true" >
         <form class="list">
             <div class="button-bar">
                 <button class="button button-stable button-block ">Total: $13.34</button>
                 <a ui-sref="reviewOrder" class="button button-stable button-block ">Finish Order</a>
             </div>
-            <label class="item item-select" name="menuDropDown">
-                <span class="input-label">Menus</span>
-                <select></select>
-            </label>
         </form>
         <ion-list></ion-list>
         <form class="list">
@@ -17,37 +13,14 @@
                 <input type="search" placeholder="Search items...">
             </label>
         </form>
-        <div class="list card">
-            <div class="item item-divider">Item Name</div>
+        <div ng-repeat="item in activeMenuItems track by $index" class="list card">
+            <div class="item item-divider">{{item.itemName}}</div>
             <div class="item item-body">
                 <ion-list></ion-list>
                 <div class="button-bar">
-                    <button class="button button-energized button-block ">Count: 3</button>
-                    <button class="button button-assertive button-block ">Remove</button>
+                    <button ng-disabled="count == 0;" ng-click="count=count-1; removeFromOrder(item._id, count)" class="button button-assertive button-block ">Remove One</button>
+                    <button ng-click="count=count+1; addToOrder(item._id, count)" ng-init="count=0" class="button button-energized button-block ">Add One: {{count}}</button>
                 </div>
-                <button class="button button-positive button-outline button-block button-small">Add To Order</button>
-            </div>
-        </div>
-        <div class="list card">
-            <div class="item item-divider">Item Name</div>
-            <div class="item item-body">
-                <ion-list></ion-list>
-                <div class="button-bar">
-                    <button class="button button-energized button-block ">Count: 3</button>
-                    <button class="button button-assertive button-block ">Remove</button>
-                </div>
-                <button class="button button-positive button-outline button-block button-small">Add To Order</button>
-            </div>
-        </div>
-        <div class="list card">
-            <div class="item item-divider">Item Name</div>
-            <div class="item item-body">
-                <ion-list></ion-list>
-                <div class="button-bar">
-                    <button class="button button-energized button-block ">Count: 3</button>
-                    <button class="button button-assertive button-block ">Remove</button>
-                </div>
-                <button class="button button-positive button-outline button-block button-small">Add To Order</button>
             </div>
         </div>
         <ion-list></ion-list>

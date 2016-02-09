@@ -22,6 +22,12 @@ angular.module('app.routes', [])
       controller: 'registerCtrl'
     })
 
+    .state('menus', {
+      url: '/menus',
+      templateUrl: 'templates/menus.html',
+      controller: 'menuListCtrl'
+    })
+
     .state('menu', {
       url: '/menu',
       templateUrl: 'templates/menu.html',
