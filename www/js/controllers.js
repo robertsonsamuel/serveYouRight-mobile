@@ -35,24 +35,38 @@ angular.module('app.controllers', [])
   }
 })
 
-.controller('menuCtrl', function($http, $rootScope, $state, $scope, menuSvc) {
+.controller('menuCtrl', function($http, $rootScope, $state, $scope, menuSvc, orderSvc) {
   if(!$rootScope.activeMenuItems){
     $state.go('menus');
   }
-  $scope.addToOrder = function (itemId) {
-    $scope.order.push(itemId);
+
+
+  $scope.addToOrder = function (item) {
+      $rootScope.orderTotal = $rootScope.orderTotal + item.itemPrice;
+      item.ordered = true;
+      console.log('item added to order',item);
+     $scope.order =  orderSvc.setOrder(item);
+     $scope.itemCount++;
+
   }
-  $scope.removeFromOrder = function (itemId) {
-    let index = $scope.order.indexOf(itemId);
-    $scope.order.splice(index,1);
+
+  $scope.removeFromOrder = function (item) {
+    $rootScope.orderTotal = $rootScope.orderTotal - item.itemPrice;
+    $scope.order = orderSvc.removeItemFromOrder(item)
+    $scope.itemCount--;
   }
+
   let user = JSON.parse(localStorage.getItem('user'));
-  $scope.order = [];
   $scope.itemCount = 0;
 })
 
 .controller('menuListCtrl', function($http, $rootScope, $state, $scope, menuSvc) {
   let user = JSON.parse(localStorage.getItem('user'));
+
+  if ($rootScope.orderTotal === 0 || $rootScope.orderTotal === undefined){
+    $rootScope.orderTotal = 0
+}
+
   menuSvc.allMenus(user.storeCode)
   .then(function (resp) {
     $scope.menus = resp.data;
@@ -78,6 +92,30 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('reviewOrderCtrl', function($scope) {
+.controller('reviewOrderCtrl', function($rootScope, $scope, orderSvc) {
+  $scope.order = orderSvc.getOrder();
+  let orderToSend = [];
+
+  $scope.data = {
+    showDelete: false
+  };
+
+
+
+  $scope.onItemDelete = function(item) {
+    $scope.order.splice($scope.order.indexOf(item), 1);
+    $rootScope.orderTotal = $rootScope.orderTotal - item.itemPrice;
+  };
+  $scope.finishOrder = function() {
+    let sendMe = $scope.order.filter(function(item) {
+      if (item.ordered) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+
+    console.log(sendMe);
+  }
 
 })

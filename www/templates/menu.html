@@ -2,8 +2,8 @@
     <ion-content overflow-scroll="true" padding="true" >
         <form class="list">
             <div class="button-bar">
-                <button class="button button-stable button-block ">Total: $13.34</button>
-                <a ui-sref="reviewOrder" class="button button-stable button-block ">Finish Order</a>
+                <button class="button button-stable button-block ">Total: {{orderTotal | currency}}</button>
+                <a ui-sref="reviewOrder" class="button button-stable button-block ">Finish Order:{{order.length}}</a>
             </div>
         </form>
         <ion-list></ion-list>
@@ -18,8 +18,8 @@
             <div class="item item-body">
                 <ion-list></ion-list>
                 <div class="button-bar">
-                    <button ng-disabled="count == 0;" ng-click="count=count-1; removeFromOrder(item._id, count)" class="button button-assertive button-block ">Remove One</button>
-                    <button ng-click="count=count+1; addToOrder(item._id, count)" ng-init="count=0" class="button button-energized button-block ">Add One: {{count}}</button>
+                  <button ng-disabled="orderTotal === 0" ng-click="removeFromOrder(item)" class="button button-assertive button-block ">Remove One</button>
+                  <button ng-disabled="false" ng-click="addToOrder(item)" ng-init="count=0" class="button button-energized button-block ">Add to Order</button>
                 </div>
             </div>
         </div>

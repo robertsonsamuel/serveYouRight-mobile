@@ -24,3 +24,23 @@ angular.module('app.services', [])
     return $http.get(`${apiUrl}/menus/menu/${menuId}`);
   }
 })
+
+.service('orderSvc', function($http){
+  let order = [];
+  this.createOrder = function (storeCode) {
+    return $http.post(`${apiUrl}/menus/storeMenus/${storeCode}`);
+  }
+  this.setOrder = function (item) {
+    order.push(item)
+    return order;
+  }
+  this.removeItemFromOrder = function (item) {
+    let index = order.indexOf(item);
+    order.splice(index, 1)
+    return order;
+  }
+  this.getOrder = function () {
+    return order;
+  }
+
+})
