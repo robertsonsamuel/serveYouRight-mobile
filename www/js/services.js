@@ -27,8 +27,8 @@ angular.module('app.services', [])
 
 .service('orderSvc', function($http){
   let order = [];
-  this.createOrder = function (storeCode) {
-    return $http.post(`${apiUrl}/menus/storeMenus/${storeCode}`);
+  this.createOrder = function (orderInfo) {
+    return $http.post(`${apiUrl}/orders/newOrder/`, orderInfo);
   }
   this.setOrder = function (item) {
     order.push(item)
@@ -41,6 +41,9 @@ angular.module('app.services', [])
   }
   this.getOrder = function () {
     return order;
+  }
+  this.clearOrder = function () {
+    order = [];
   }
 
 })

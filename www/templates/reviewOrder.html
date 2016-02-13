@@ -21,7 +21,7 @@
 
                   <ion-item ng-repeat="item in order track by $index"
                             item="item"
-                            href="#/item/{{item.id}}" class="item-remove-animate">
+                            class="item-remove-animate">
                     {{item.itemName}} | {{item.itemPrice | currency}}
                     <ion-delete-button class="ion-minus-circled"
                                        ng-click="onItemDelete(item)">

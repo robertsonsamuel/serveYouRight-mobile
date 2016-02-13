@@ -92,7 +92,7 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('reviewOrderCtrl', function($rootScope, $scope, orderSvc) {
+.controller('reviewOrderCtrl', function($rootScope, $scope, $state, orderSvc) {
   $scope.order = orderSvc.getOrder();
   let orderToSend = [];
 
@@ -107,7 +107,12 @@ angular.module('app.controllers', [])
     $rootScope.orderTotal = $rootScope.orderTotal - item.itemPrice;
   };
   $scope.finishOrder = function() {
-    let sendMe = $scope.order.filter(function(item) {
+    let orderIds = [];
+    let user = JSON.parse(localStorage.getItem('user'))._id;
+    let storeCode = JSON.parse(localStorage.getItem('user')).storeCode;
+    let orderInfo = {};
+    orderInfo.employee = user;
+    let filtered = $scope.order.filter(function(item) {
       if (item.ordered) {
         return true;
       } else {
@@ -115,7 +120,22 @@ angular.module('app.controllers', [])
       }
     })
 
-    console.log(sendMe);
+    filtered.map(function (item) {
+      orderIds.push(item._id)
+    })
+
+    orderInfo.items = orderIds;
+    orderInfo.storeCode = storeCode;
+
+    orderSvc.createOrder(orderInfo).then(function (resp) {
+      swal('Great!', 'Your order has been sent to the kitchen!', 'success');
+      orderSvc.clearOrder();
+      $scope.order = orderSvc.getOrder();
+      $rootScope.orderTotal = 0;
+      $state.go('menus')
+    },function (err) {
+      swal('Error', 'Please try again, there wasn an error creating the order.', 'warning');
+    })
   }
 
 })
