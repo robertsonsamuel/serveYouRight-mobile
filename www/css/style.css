@@ -1,0 +1,18 @@
+img.logoImage {
+    width: 100%;
+}
+ion-content#loginContent {
+    background: rgb(249, 165, 61);
+}
+ion-content#menusContent {
+    background: orange;
+}
+ion-content#menuContent {
+    background: orange;
+}
+ion-content#reviewOrderContent {
+    background: orange;
+}
+h3.whiteText {
+    color: white;
+}

@@ -1,5 +1,5 @@
 <ion-view title="Menu">
-    <ion-content overflow-scroll="true" padding="true" >
+    <ion-content id="menuContent" overflow-scroll="true" padding="true" >
         <form class="list">
             <div class="button-bar">
                 <button class="button button-stable button-block ">Total: {{orderTotal | currency}}</button>
@@ -10,10 +10,10 @@
         <form class="list">
             <label class="item item-input">
                 <i class="icon ion-search placeholder-icon"></i>
-                <input type="search" placeholder="Search items...">
+                <input ng-model="searchText" type="search" placeholder="Search items...">
             </label>
         </form>
-        <div ng-repeat="item in activeMenuItems track by $index" class="list card">
+        <div ng-repeat="item in activeMenuItems | filter:searchText track by $index" class="list card">
             <div class="item item-divider">{{item.itemName}}</div>
             <div class="item item-body">
                 <ion-list></ion-list>

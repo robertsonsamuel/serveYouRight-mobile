@@ -1,34 +1,38 @@
 <ion-view title="Review Order">
-    <ion-content overflow-scroll="true" padding="true" >
-      <ion-header-bar class="bar-positive">
-            <div class="buttons">
-              <button class="button button-icon icon ion-ios-minus-outline"
-                ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
-            </div>
-              <button ng-click="finishOrder()" class="button button-balanced">Complete Order | Total: {{orderTotal | currency}}</button>
-            <div class="buttons">
-            </div>
-          </ion-header-bar>
+  <ion-content id="reviewOrderContent" overflow-scroll="true" padding="true">
+    <ion-header-bar class="bar bar-header bar-dark">
+      <div class="buttons">
+        <button class="button button-icon icon ion-ios-minus-outline" ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
+      </div>
+      <div class="col">
+        <h3 class="whiteText">Review Order</h3>
+      </div>
+    </ion-header-bar>
 
-        <form class="list">
-            <div>
-                <p>
-                    <em>Uncheck to remove</em>
-                </p>
-            </div>
+    <form class="list">
+      <div>
+        <p>
+          <em>Uncheck to remove</em>
+        </p>
+      </div>
 
-                <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
+      <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
+        <div class="row">
+          <div class="col text-center">
+          <div class="card"><h4 class="">Total:{{orderTotal | currency}}</h4></div>
+          </div>
+        </div>
+        <div class="button-bar">
+        <button ng-click="finishOrder()" class="button button-assertive">Cancel Order</button>
+        <button ng-click="finishOrder()" class="button button-balanced ">Send to Kitchen</button>
+      </div>
+        <ion-item ng-repeat="item in order track by $index" item="item" class="item-remove-animate">
+          {{item.itemName}} | {{item.itemPrice | currency}}
+          <ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(item)">
+          </ion-delete-button>
+        </ion-item>
 
-                  <ion-item ng-repeat="item in order track by $index"
-                            item="item"
-                            class="item-remove-animate">
-                    {{item.itemName}} | {{item.itemPrice | currency}}
-                    <ion-delete-button class="ion-minus-circled"
-                                       ng-click="onItemDelete(item)">
-                    </ion-delete-button>
-                  </ion-item>
-
-                </ion-list>
-        </form>
-    </ion-content>
+      </ion-list>
+    </form>
+  </ion-content>
 </ion-view>
