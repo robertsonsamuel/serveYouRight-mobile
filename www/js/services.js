@@ -1,5 +1,6 @@
 'use strict';
-var apiUrl = 'http://localhost:3000';
+// var apiUrl = 'http://localhost:3000';
+var apiUrl = 'https://cryptic-scrubland-29297.herokuapp.com';
 
 angular.module('app.services', [])
 

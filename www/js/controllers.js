@@ -16,13 +16,22 @@ angular.module('app.controllers', [])
   }
 })
 
-.controller('loginCtrl', function($rootScope, $scope, $http, $state, loginSvc) {
+.controller('loginCtrl', function($rootScope, $scope, $http, $state, $ionicNavBarDelegate, loginSvc) {
+ $ionicNavBarDelegate.showBackButton(false);
+ if(typeof localStorage.token === 'undefined'){
+   $state.go('login');
+ }else if(localStorage.token == null){
+     $state.go('login');
+ }else{
+     $state.go('menus')
+ }
 
   $scope.login = function (loginInfo) {
     loginSvc.loginEmployee(loginInfo)
     .then(function (resp) {
       localStorage.setItem('token', resp.data.token);
       localStorage.setItem('user', JSON.stringify(resp.data.user));
+      $rootScope.user = resp.data.user;
       loginInfo.email = '';
       loginInfo.password = '';
 
@@ -35,24 +44,25 @@ angular.module('app.controllers', [])
   }
 })
 
-.controller('menuCtrl', function($http, $rootScope, $state, $scope, menuSvc, orderSvc) {
-  if(!$rootScope.activeMenuItems){
-    $state.go('menus');
-  }
+.controller('menuCtrl', function($http, $rootScope, $state, $scope, $ionicNavBarDelegate, menuSvc, orderSvc) {
+  $ionicNavBarDelegate.showBackButton(true);
+  // if(!$rootScope.activeMenuItems){
+  //   $state.go('menus');
+  // }
 
 
   $scope.addToOrder = function (item) {
       $rootScope.orderTotal = $rootScope.orderTotal + item.itemPrice;
       item.ordered = true;
       console.log('item added to order',item);
-     $scope.order =  orderSvc.setOrder(item);
+     $rootScope.order =  orderSvc.setOrder(item);
      $scope.itemCount++;
 
   }
 
   $scope.removeFromOrder = function (item) {
     $rootScope.orderTotal = $rootScope.orderTotal - item.itemPrice;
-    $scope.order = orderSvc.removeItemFromOrder(item)
+    $rootScope.order = orderSvc.removeItemFromOrder(item)
     $scope.itemCount--;
   }
 
@@ -60,7 +70,8 @@ angular.module('app.controllers', [])
   $scope.itemCount = 0;
 })
 
-.controller('menuListCtrl', function($http, $rootScope, $state, $scope, menuSvc) {
+.controller('menuListCtrl', function($http, $rootScope, $state, $scope,$ionicNavBarDelegate, menuSvc) {
+    $ionicNavBarDelegate.showBackButton(false);
   let user = JSON.parse(localStorage.getItem('user'));
 
   if ($rootScope.orderTotal === 0 || $rootScope.orderTotal === undefined){
@@ -92,8 +103,9 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('reviewOrderCtrl', function($rootScope, $scope, $state, orderSvc) {
-  $scope.order = orderSvc.getOrder();
+.controller('reviewOrderCtrl', function($rootScope, $scope, $ionicNavBarDelegate, $state, orderSvc) {
+  $ionicNavBarDelegate.showBackButton(true);
+  $rootScope.order = orderSvc.getOrder();
   let orderToSend = [];
 
   $scope.data = {
@@ -103,7 +115,7 @@ angular.module('app.controllers', [])
 
 
   $scope.onItemDelete = function(item) {
-    $scope.order.splice($scope.order.indexOf(item), 1);
+    $rootScope.order.splice($rootScope.order.indexOf(item), 1);
     $rootScope.orderTotal = $rootScope.orderTotal - item.itemPrice;
   };
   $scope.finishOrder = function() {
@@ -112,7 +124,7 @@ angular.module('app.controllers', [])
     let storeCode = JSON.parse(localStorage.getItem('user')).storeCode;
     let orderInfo = {};
     orderInfo.employee = user;
-    let filtered = $scope.order.filter(function(item) {
+    let filtered = $rootScope.order.filter(function(item) {
       if (item.ordered) {
         return true;
       } else {
@@ -130,7 +142,7 @@ angular.module('app.controllers', [])
     orderSvc.createOrder(orderInfo).then(function (resp) {
       swal('Great!', 'Your order has been sent to the kitchen!', 'success');
       orderSvc.clearOrder();
-      $scope.order = orderSvc.getOrder();
+      $rootScope.order = orderSvc.getOrder();
       $rootScope.orderTotal = 0;
       $state.go('menus')
     },function (err) {

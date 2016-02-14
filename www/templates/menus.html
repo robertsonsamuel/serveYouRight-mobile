@@ -1,10 +1,11 @@
 <ion-view title="Menus">
     <ion-content overflow-scroll="true" padding="true" >
-        <a ng-click="logout()" href="">Logout</a>
+        <button ng-click="logout()" class="button button-assertive button-block ">Logout</button>
         <ion-list></ion-list>
         <ul class="list">
           <ion-item ng-click="goToMenu(menu._id)" ng-repeat="menu in menus" class="item-remove-animate">{{menu.menuName}} </ion-item>
         </ul>
         <ion-list></ion-list>
+
     </ion-content>
 </ion-view>
