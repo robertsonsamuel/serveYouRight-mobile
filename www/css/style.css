@@ -16,3 +16,11 @@ ion-content#reviewOrderContent {
 h3.whiteText {
     color: white;
 }
+svg {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    display: inline-block;
+    position: relative;
+    left: 5%;
+}

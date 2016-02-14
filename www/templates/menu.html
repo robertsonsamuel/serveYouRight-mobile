@@ -13,7 +13,7 @@
                 <input ng-model="searchText" type="search" placeholder="Search items...">
             </label>
         </form>
-        <div ng-repeat="item in activeMenuItems | filter:searchText track by $index" class="list card">
+        <div ng-repeat="item in activeMenuItems | filter:searchText track by $index" class="list card animated slideInUp">
             <div class="item item-divider">{{item.itemName}}</div>
             <div class="item item-body">
                 <ion-list></ion-list>

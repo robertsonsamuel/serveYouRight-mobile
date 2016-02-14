@@ -1,16 +1,36 @@
 <ion-view title="Login">
-    <ion-content id="loginContent" overflow-scroll="true" padding="true" scroll="false" class="has-header">
-        <div class="card">
-          <img class="logoImage" src="img/Serve-You-Right-logo.png" alt="">
-        </div>
-        <form class="list list-inset">
-            <label class="item item-input">
-                <input ng-model="loginInfo.email" type="email" placeholder="Email" required="">
-            </label>
-            <label class="item item-input">
-                <input ng-model="loginInfo.password" type="password" placeholder="Password" required="">
-            </label>
-        </form>
-        <button ng-click="login(loginInfo)" class="button button-balanced  button-large icon-right ion-android-arrow-dropright button-full">Sign In</button>
-    </ion-content>
+  <ion-content id="loginContent" overflow-scroll="true" padding="true" scroll="false" class="has-header">
+    <div class="card">
+      <img class="logoImage" src="img/Serve-You-Right-logo.png" alt="">
+    </div>
+  <div ng-show="loading" class="row">
+    <div class="col text-center">
+      <svg  version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+        <rect x="20" y="50" width="4" height="10" fill="#fff">
+          <animateTransform attributeType="xml" attributeName="transform" type="translate" values="0 0; 0 20; 0 0" begin="0" dur="0.6s" repeatCount="indefinite" />
+        </rect>
+        <rect x="30" y="50" width="4" height="10" fill="#fff">
+          <animateTransform attributeType="xml" attributeName="transform" type="translate" values="0 0; 0 20; 0 0" begin="0.2s" dur="0.6s" repeatCount="indefinite" />
+        </rect>
+        <rect x="40" y="50" width="4" height="10" fill="#fff">
+          <animateTransform attributeType="xml" attributeName="transform" type="translate" values="0 0; 0 20; 0 0" begin="0.4s" dur="0.6s" repeatCount="indefinite" />
+        </rect>
+      </svg>
+    </div>
+  </div>
+
+
+    <div ng-hide="loading">
+      <form class="list list-inset">
+        <label class="item item-input">
+          <input ng-model="loginInfo.email" type="email" placeholder="Email" required="">
+        </label>
+        <label class="item item-input">
+          <input ng-model="loginInfo.password" type="password" placeholder="Password" required="">
+        </label>
+        <br>
+      </form>
+      <button ng-disable="loading" ng-click="login(loginInfo)" class="button button-balanced  button-large icon-right ion-android-arrow-dropright button-full">Sign In</button>
+    </div>
+  </ion-content>
 </ion-view>

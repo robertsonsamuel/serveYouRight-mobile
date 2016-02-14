@@ -27,8 +27,10 @@ angular.module('app.controllers', [])
  }
 
   $scope.login = function (loginInfo) {
+    $scope.loading = true;
     loginSvc.loginEmployee(loginInfo)
     .then(function (resp) {
+      $scope.loading = false;
       localStorage.setItem('token', resp.data.token);
       localStorage.setItem('user', JSON.stringify(resp.data.user));
       $rootScope.user = resp.data.user;
@@ -38,6 +40,7 @@ angular.module('app.controllers', [])
       $state.go('menus');
     }, function (err) {
       if(!err.data) return swal('Error Signing In','Please check your connection.', 'warning');
+      $scope.loading = false;
       swal('Error Signing In', err.data.message, 'error');
 
     })
@@ -54,7 +57,6 @@ angular.module('app.controllers', [])
   $scope.addToOrder = function (item) {
       $rootScope.orderTotal = $rootScope.orderTotal + item.itemPrice;
       item.ordered = true;
-      console.log('item added to order',item);
      $rootScope.order =  orderSvc.setOrder(item);
      $scope.itemCount++;
 
