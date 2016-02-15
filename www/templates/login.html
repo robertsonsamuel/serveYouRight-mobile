@@ -21,7 +21,7 @@
 
 
     <div ng-hide="loading">
-      <form class="list list-inset">
+      <form class="list ">
         <label class="item item-input">
           <input ng-model="loginInfo.email" type="email" placeholder="Email" required="">
         </label>
@@ -30,7 +30,7 @@
         </label>
         <br>
       </form>
-      <button ng-disable="loading" ng-click="login(loginInfo)" class="button button-balanced  button-large icon-right ion-android-arrow-dropright button-full">Sign In</button>
+      <button ng-disable="loading" ng-click="login(loginInfo)" class="button button-assertive  button-large icon-right ion-android-arrow-dropright button-full">Sign In</button>
     </div>
   </ion-content>
 </ion-view>

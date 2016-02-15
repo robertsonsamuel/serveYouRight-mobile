@@ -2,12 +2,14 @@
     <ion-content id="menuContent" overflow-scroll="true" padding="true" >
         <form class="list">
             <div class="button-bar">
-                <button class="button button-stable button-block ">Total: {{orderTotal | currency}}</button>
-                <a ui-sref="reviewOrder" class="button button-stable button-block ">Finish Order:{{order.length}}</a>
+                <button ui-sref="reviewOrder" class="button button-stable button-block ">Total: {{orderTotal | currency}}</button>
+                <a ui-sref="reviewOrder" class="button button-balanced button-block ">Finish Order:{{order.length}}</a>
             </div>
+            <button ui-sref="menus" class="button button-royal button-block">Back to Menu List</button>
         </form>
         <ion-list></ion-list>
         <form class="list">
+
             <label class="item item-input">
                 <i class="icon ion-search placeholder-icon"></i>
                 <input ng-model="searchText" type="search" placeholder="Search items...">
@@ -18,11 +20,11 @@
             <div class="item item-body">
                 <ion-list></ion-list>
                 <div class="button-bar">
-                  <button ng-disabled="orderTotal === 0" ng-click="removeFromOrder(item)" class="button button-assertive button-block ">Remove One</button>
-                  <button ng-disabled="false" ng-click="addToOrder(item)" ng-init="count=0" class="button button-energized button-block ">Add to Order</button>
+                  <button ng-disabled="false" ng-click="addToOrder(item)" ng-init="count=0" class="button button-dark button-block ">Add to Order</button>
                 </div>
             </div>
         </div>
+
         <ion-list></ion-list>
     </ion-content>
 </ion-view>

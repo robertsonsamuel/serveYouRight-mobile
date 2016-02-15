@@ -115,7 +115,11 @@ angular.module('app.controllers', [])
   };
 
 
-
+  $scope.cancelOrder = function () {
+    $rootScope.order = [];
+    $rootScope.orderTotal = 0;
+    orderSvc.clearOrder();
+  }
   $scope.onItemDelete = function(item) {
     $rootScope.order.splice($rootScope.order.indexOf(item), 1);
     $rootScope.orderTotal = $rootScope.orderTotal - item.itemPrice;

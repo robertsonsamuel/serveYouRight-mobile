@@ -2,16 +2,16 @@ img.logoImage {
     width: 100%;
 }
 ion-content#loginContent {
-    background: rgb(249, 165, 61);
+    background: #FFB42B;
 }
 ion-content#menusContent {
-    background: orange;
+    background: #FFB42B;
 }
 ion-content#menuContent {
-    background: orange;
+    background: #FFB42B;
 }
 ion-content#reviewOrderContent {
-    background: orange;
+    background: #FFB42B;
 }
 h3.whiteText {
     color: white;

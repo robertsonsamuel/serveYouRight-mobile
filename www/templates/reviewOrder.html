@@ -23,7 +23,7 @@
           </div>
         </div>
         <div class="button-bar">
-        <button ng-click="finishOrder()" class="button button-assertive">Cancel Order</button>
+        <button ng-disabled="order.length <= 0" ng-click="cancelOrder()" class="button button-assertive">Cancel Order</button>
         <button ng-click="finishOrder()" class="button button-balanced ">Send to Kitchen</button>
       </div>
         <ion-item ng-repeat="item in order track by $index" item="item" class="item-remove-animate">
